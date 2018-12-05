@@ -41,6 +41,10 @@
       git:
         repo: "https://github.com/d8bit/dotfiles.git"
         dest: ~/dotfiles
+    - name: Create .vim directory
+      file:
+        path: ~/.vim/autoload
+        state: directory
     - name: Copy Vim theme as symlink
       file:
         src: "~/dotfiles/colors"
