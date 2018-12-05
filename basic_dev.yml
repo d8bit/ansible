@@ -1,0 +1,54 @@
+---
+- hosts: jarvis
+  tasks:
+    - name: Install Mosh
+      apt: name=mosh state=present
+      become: true
+    - name: Install Vim
+      apt: name=vim state=present
+      become: true
+    - name: Install ctags
+      apt: name=exuberant-ctags state=present
+      become: true
+    - name: Install Apache server
+      apt: name=apache2 state=present update_cache=true
+      become: true
+      notify:
+        - "Start Apache server"
+    - name: Clone dotfiles
+      git:
+        repo: "https://github.com/d8bit/dotfiles.git"
+        dest: ~/dotfiles
+    - name: Copy Vim theme as symlink
+      file:
+        src: "~/dotfiles/colors"
+        dest: "~/.vim/colors"
+        state: link
+    - name: Copy Vim config as a symlink
+      file:
+        src: "~/dotfiles/vimrc"
+        dest: "~/.vimrc"
+        state: link
+    - name: Copy Tmux config as a symlink
+      file:
+        src: "~/dotfiles/tmux.conf"
+        dest: "~/.tmux.conf"
+        state: link
+    - name: Create Vim Plug directory
+      file:
+        path: ~/.vim/autoload
+        state: directory
+    - name: Install Vim Plug
+      get_url:
+        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        dest: ~/.vim/autoload/
+    - name: Ensure a locale exists
+      locale_gen:
+        name: es_ES.UTF-8
+        state: present
+
+
+  handlers:
+  - name: "Start Apache server"
+    service: name=apache2 state=started
+    become: true
