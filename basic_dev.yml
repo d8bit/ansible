@@ -2,10 +2,10 @@
 - hosts: jarvis
   tasks:
     - name: Install Mosh
-      apt: name=mosh state=present
+      apt: name=mosh state=present update_cache=true
       become: true
     - name: Install zsh shell
-      apt: name=zsh state=present
+      apt: name=zsh state=present update_cache=true
       become: true
     - name: Clone Oh My Zsh
       git:
@@ -16,10 +16,10 @@
         src: "~/.oh-my-zsh/templates/zshrc.zsh-template"
         dest: "~/.zshrc"
     - name: Install Vim
-      apt: name=vim state=present
+      apt: name=vim state=present update_cache=true
       become: true
     - name: Install ctags
-      apt: name=exuberant-ctags state=present
+      apt: name=exuberant-ctags state=present update_cache=true
       become: true
     - name: Install Apache server
       apt: name=apache2 state=present update_cache=true
