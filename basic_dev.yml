@@ -15,6 +15,9 @@
       copy:
         src: "~/.oh-my-zsh/templates/zshrc.zsh-template"
         dest: "~/.zshrc"
+    - name: Set zsh the default shell
+      shell: chsh -s $(which zsh)
+      become: true
     - name: Install Vim
       apt: name=vim state=present update_cache=true
       become: true
