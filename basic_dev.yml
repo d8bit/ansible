@@ -4,6 +4,17 @@
     - name: Install Mosh
       apt: name=mosh state=present
       become: true
+    - name: Install zsh shell
+      apt: name=zsh state=present
+      become: true
+    - name: Clone Oh My Zsh
+      git:
+        repo: "https://github.com/robbyrussell/oh-my-zsh"
+        dest: "~/.oh-my-zsh"
+    - name: Copy Oh My Zsh template config
+      copy:
+        src: "~/.oh-my-zsh/templates/zshrc.zsh-template"
+        dest: "~/.zshrc"
     - name: Install Vim
       apt: name=vim state=present
       become: true
@@ -40,8 +51,8 @@
         state: directory
     - name: Install Vim Plug
       get_url:
-        url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        dest: ~/.vim/autoload/
+        url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+        dest: "~/.vim/autoload/"
     - name: Ensure a locale exists
       locale_gen:
         name: es_ES.UTF-8
