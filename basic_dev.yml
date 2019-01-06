@@ -5,7 +5,7 @@
       apt: name=mosh state=present update_cache=true
       become: true
     - name: Install zsh shell
-      apt: name=zsh state=present update_cache=true
+      apt: name=zsh state=present
       become: true
     - name: Clone Oh My Zsh
       git:
@@ -19,26 +19,29 @@
       shell: chsh -s $(which zsh)
       become: true
     - name: Install Vim
-      apt: name=vim state=present update_cache=true
+      apt: name=vim state=present
       become: true
     - name: Install ctags
-      apt: name=exuberant-ctags state=present update_cache=true
+      apt: name=exuberant-ctags state=present
       become: true
     - name: Install Apache server
-      apt: name=apache2 state=present update_cache=true
+      apt: name=apache2 state=present
       become: true
       notify:
         - "Start Apache server"
     - name: Install PHP
-      apt: name=php state=present update_cache=true
+      apt: name=php state=present
       become: true
       notify:
         - "Restart Apache server"
     - name: Install phpmd
-      apt: name=phpmd state=present update_cache=true
+      apt: name=phpmd state=present
       become: true
     - name: Install php-codesniffer
-      apt: name=php-codesniffer state=present update_cache=true
+      apt: name=php-codesniffer state=present
+      become: true
+    - name: Install Git flow
+      apt: name=git-flow state=present
       become: true
     - name: Clone dotfiles
       git:
