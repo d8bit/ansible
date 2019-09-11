@@ -1,8 +1,17 @@
 ---
 - hosts: jarvis
   tasks:
-    - name: Install Mosh
-      apt: name=mosh state=present update_cache=true
+    - name: Install virtualenv
+      apt: name=virtualenv state=present
+      become: true
+    - name: Install build-essential
+      apt: name=build-essential state=present
+      become: true
+    - name: Install ncurses
+      apt: name=ncurses-dev state=present
+      become: true
+    - name: Install git
+      apt: name=git state=present
       become: true
     - name: Install zsh shell
       apt: name=zsh state=present
