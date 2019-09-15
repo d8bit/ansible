@@ -7,6 +7,12 @@
     - name: Install build-essential
       apt: name=build-essential state=present
       become: true
+    - name: Install python-dev
+      apt: name=python3-dev state=present
+      become: true
+    - name: Install python3-dev
+      apt: name=python3-dev state=present
+      become: true
     - name: Install ncurses
       apt: name=ncurses-dev state=present
       become: true
@@ -20,10 +26,6 @@
       git:
         repo: "https://github.com/robbyrussell/oh-my-zsh"
         dest: "~/.oh-my-zsh"
-    - name: Copy Oh My Zsh template config
-      copy:
-        src: "~/.oh-my-zsh/templates/zshrc.zsh-template"
-        dest: "~/.zshrc"
     - name: Set zsh the default shell
       shell: chsh -s $(which zsh)
       become: true
@@ -75,6 +77,14 @@
         src: "~/dotfiles/tmux.conf"
         dest: "~/.tmux.conf"
         state: link
+    # - name: Copy Oh My Zsh template config
+    #   copy:
+    #     src: "~/.oh-my-zsh/templates/zshrc.zsh-template"
+    #     dest: "~/.zshrc"
+    - name: Copy Oh My Zsh config
+      copy:
+        src: "~/dotfiles/zshrc"
+        dest: "~/.zshrc"
     - name: Create Vim Plug directory
       file:
         path: ~/.vim/autoload
